@@ -2,6 +2,7 @@ import time
 import random
 
 from maze_solver.cell import Cell
+from maze_solver.config import target_time_to_setup, target_time_to_solve
 from maze_solver.graphics import Window
 
 class Maze():
@@ -54,14 +55,14 @@ class Maze():
         y2 = y1 + self.__cell_size_y
 
         self.__cells[col][row].draw(x1, y1, x2, y2)
-        self.__animate()
+        self.__animate(target_time_to_setup / (2 * self.__num_rows * self.__num_cols)) # 2 is for the two steps; create grid and knock down walls
 
-    def __animate(self) -> None:
+    def __animate(self, sleep: float = 0.05) -> None:
         if self.__win is None:
             return
 
         self.__win.redraw()
-        time.sleep(0.005)
+        time.sleep(sleep)
 
     def _break_entrance_and_exit(self) -> None:
         if self.__cells == []:
@@ -135,7 +136,7 @@ class Maze():
     # returns True if this is the end cell, OR if it leads to the end cell.
     # returns False if this is a loser cell.
     def _solve_r(self, i: int, j: int) -> bool:
-        self.__animate()
+        self.__animate(target_time_to_solve / (self.__num_rows * self.__num_cols))  # Assumes every cell will be visited; should be solved faster than target_time_to_solve
 
         # vist the current cell
         self.__cells[i][j].visited = True

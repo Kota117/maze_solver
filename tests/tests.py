@@ -8,11 +8,11 @@ class Tests(unittest.TestCase):
         num_rows = 3
         m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
         self.assertEqual(
-            len(m1._Maze__cells),  # Pylance won't like this syntax, but python allows it
+            len(getattr(m1, "_Maze__cells")),
             num_cols,
         )
         self.assertEqual(
-            len(m1._Maze__cells[0]),
+            len(getattr(m1, "_Maze__cells")[0]),
             num_rows,
         )
 
@@ -21,11 +21,11 @@ class Tests(unittest.TestCase):
         num_rows = 12
         m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
         self.assertEqual(
-            len(m1._Maze__cells),
+            len(getattr(m1, "_Maze__cells")),
             num_cols,
         )
         self.assertEqual(
-            len(m1._Maze__cells[0]),
+            len(getattr(m1, "_Maze__cells")[0]),
             num_rows,
         )
 
@@ -34,7 +34,7 @@ class Tests(unittest.TestCase):
         num_rows = 0
         m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
         self.assertEqual(
-            m1._Maze__cells,
+            getattr(m1, "_Maze__cells"),
             [],
         )
 

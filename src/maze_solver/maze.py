@@ -75,6 +75,9 @@ class Maze():
         self.__draw_cell(col, row)
 
     def __break_walls_r(self, col: int, row: int) -> None:
+        if self.__cells == []:
+            return
+        
         self.__cells[col][row].visited = True
         while True:
             next_index_list = []

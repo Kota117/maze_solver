@@ -24,6 +24,7 @@ class Maze():
         
         self.__cells: list[list[Cell]] = [] # Indices are [column][row]
         self.__create_cells()
+        self._break_entrance_and_exit()
 
     def __create_cells(self) -> None:
         for i in range(self.__num_cols):
@@ -54,3 +55,15 @@ class Maze():
 
         self.__win.redraw()
         time.sleep(0.05)
+
+    def _break_entrance_and_exit(self) -> None:
+        if self.__cells == []:
+            return
+
+        row, col = 0, 0
+        self.__cells[col][row].has_top_wall = False
+        self.__draw_cell(col, row)
+
+        row, col = self.__num_rows - 1, self.__num_cols - 1
+        self.__cells[col][row].has_bottom_wall = False
+        self.__draw_cell(col, row)

@@ -2,8 +2,8 @@ from maze_solver.graphics import Window
 from maze_solver.maze import Maze
 
 def main() -> None:
-    num_rows = 20
-    num_cols = 30
+    num_rows = 6
+    num_cols = 8
     margin = 50
     screen_x = 800
     screen_y = 600

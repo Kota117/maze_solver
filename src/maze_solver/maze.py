@@ -131,3 +131,72 @@ class Maze():
         for col in self.__cells:
             for cell in col:
                 cell.visited = False
+
+    # returns True if this is the end cell, OR if it leads to the end cell.
+    # returns False if this is a loser cell.
+    def _solve_r(self, i: int, j: int) -> bool:
+        self.__animate()
+
+        # vist the current cell
+        self.__cells[i][j].visited = True
+
+        # if we are at the end cell, we are done!
+        if i == self.__num_cols - 1 and j == self.__num_rows - 1:
+            return True
+
+        # move left if there is no wall and it hasn't been visited
+        if (
+            i > 0
+            and not self.__cells[i][j].has_left_wall
+            and not self.__cells[i - 1][j].visited
+        ):
+            self.__cells[i][j].draw_move(self.__cells[i - 1][j])
+            if self._solve_r(i - 1, j):
+                return True
+            else:
+                self.__cells[i][j].draw_move(self.__cells[i - 1][j], True)
+
+        # move right if there is no wall and it hasn't been visited
+        if (
+            i < self.__num_cols - 1
+            and not self.__cells[i][j].has_right_wall
+            and not self.__cells[i + 1][j].visited
+        ):
+            self.__cells[i][j].draw_move(self.__cells[i + 1][j])
+            if self._solve_r(i + 1, j):
+                return True
+            else:
+                self.__cells[i][j].draw_move(self.__cells[i + 1][j], True)
+
+        # move up if there is no wall and it hasn't been visited
+        if (
+            j > 0
+            and not self.__cells[i][j].has_top_wall
+            and not self.__cells[i][j - 1].visited
+        ):
+            self.__cells[i][j].draw_move(self.__cells[i][j - 1])
+            if self._solve_r(i, j - 1):
+                return True
+            else:
+                self.__cells[i][j].draw_move(self.__cells[i][j - 1], True)
+
+        # move down if there is no wall and it hasn't been visited
+        if (
+            j < self.__num_rows - 1
+            and not self.__cells[i][j].has_bottom_wall
+            and not self.__cells[i][j + 1].visited
+        ):
+            self.__cells[i][j].draw_move(self.__cells[i][j + 1])
+            if self._solve_r(i, j + 1):
+                return True
+            else:
+                self.__cells[i][j].draw_move(self.__cells[i][j + 1], True)
+
+        # we went the wrong way let the previous cell know by returning False
+        return False
+
+    # create the moves for the solution using a depth first search
+    def solve(self) -> bool:
+        return self._solve_r(0, 0)
+
+

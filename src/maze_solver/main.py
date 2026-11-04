@@ -2,8 +2,8 @@ from maze_solver.graphics import Window
 from maze_solver.maze import Maze
 
 def main() -> None:
-    num_rows = 2
-    num_cols = 3
+    num_rows = 12
+    num_cols = 16
     margin = 50
     screen_x = 800
     screen_y = 600
@@ -17,7 +17,7 @@ def main() -> None:
         cell_size_y = (screen_y - 2 * margin) / num_rows
     win = Window(screen_x, screen_y)
 
-    _maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win, 23)
+    _maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win, None)
     
     win.wait_for_close()
 

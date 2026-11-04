@@ -60,7 +60,7 @@ class Maze():
             return
 
         self.__win.redraw()
-        time.sleep(0.05)
+        time.sleep(0.005)
 
     def _break_entrance_and_exit(self) -> None:
         if self.__cells == []:
